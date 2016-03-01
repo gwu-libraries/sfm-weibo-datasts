@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+        {% block stylesheet %}
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+        <link href="{{ STATIC_URL }}css/libheader7_lite.css" rel="stylesheet" />
+        <link href="{{ STATIC_URL }}css/libheader7_lite_bootswatch.css" rel="stylesheet" />
+        <!--[if lt IE 9]>
+        <link href="{{ STATIC_URL }}css/libheader7_lite_ie.css" rel="stylesheet">
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="{{ STATIC_URL }}css/sfm.css" rel="stylesheet" />
+
+        <link rel="alternate icon" type="image/png" href="/static/assets/i/favicon.png">
+        <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+
+
+        {% endblock stylesheet %}
+
+        {% block stylesheet_extra %}
+        <style>
+            .footer p {
+              color: #7f8c8d;
+              margin: 0;
+              padding: 15px 0;
+              text-align: center;
+              background: #2d3e50;
+            }
+        </style>
+
+        {% endblock stylesheet_extra %}
+    </head>
+
+    <body>
+
+        <article class="container">
+            {% block content %}
+
+            {% endblock content %}
+        </article>
+
+        <footer class="footer">
+            <p>© Copyright 2015 <a href="https://github.com/gwu-libraries/" target="_blank">George Washington University Libraries</a>.
+                Powered by <a herf="http://amazeui.org/">Amaze UI</a></p>
+        </footer>
+
+        {% block javascript %}
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        {% endblock javascript %}
+        {% block javascript_extra %}
+        {% endblock javascript_extra %}
+
+    </body>
+</html>

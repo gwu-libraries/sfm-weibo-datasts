@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class='am-text-center'>
+    <h1>{{ title }}</h1>
+</div>
+
+<div class='am-g am-container' style=" max-width: 1200px;">
+    {% include "weibos_pagination.html" %}
+    <table class='am-table am-table-striped am-table-hover'>
+        <thead>
+            <tr>
+                <th class="am-text-center">weibo_id</th>
+                <th class="am-text-center">screen_name</th>
+                <th class="am-text-center">uid</th>
+                <th class="am-text-center">date_published</th>
+                <th class="am-text-center">text</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in weibos %}
+            <tr>
+                <td>{{ item.weibo_id }}</td>
+                <td>{{ item.screen_name }}</td>
+                <td>{{ item.uid }}</td>
+                <td>{{ item.date_published }}</td>
+                <td>{{ item.context }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "weibos_pagination.html" %}
+</div>
+
+
+{% endblock content %}
