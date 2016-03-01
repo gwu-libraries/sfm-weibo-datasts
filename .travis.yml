@@ -1,0 +1,10 @@
+language: python
+python:
+- '2.7'
+install: pip install -r requirements/requirements.txt
+script:
+- cd weiboanalysis
+- "./manage.py test --settings=weiboanalysis.settings"
+notifications:
+  email:
+  - ychtan@email.gwu.com

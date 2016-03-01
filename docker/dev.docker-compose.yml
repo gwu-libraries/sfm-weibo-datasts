@@ -1,0 +1,19 @@
+sfmdevdb:
+    image: gwul/sfm-ui-db:master
+    environment:
+        - TZ=EST
+        - POSTGRES_PASSWORD=gherD42#dl5
+sfmdevapp:
+    image: gwul/sfm-weibo-analysis:dev
+    ports:
+        - "8080:80"
+    links:
+        - sfmdevdb:db
+    volumes:
+        - "..:/opt/sfm-weibo-analysis"
+        - "../../sfm-weibo-harvester:/opt/sfm-weibo-harvester"
+        - "../../sfm-utils:/opt/sfm-utils"
+        - "../../warcprox:/opt/warcprox"
+    environment:
+        - TZ=EST
+        - SFM_DEBUG=True

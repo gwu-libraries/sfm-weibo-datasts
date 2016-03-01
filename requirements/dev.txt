@@ -1,0 +1,4 @@
+-r common.txt
+-e ../warcprox
+-e ../sfm-utils
+-e ../sfm-weibo-harvester
