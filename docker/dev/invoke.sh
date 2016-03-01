@@ -3,7 +3,7 @@ echo "Updating packages"
 apt-get install -y < /opt/sfm-weibo-datasts/requirements/requirements.apt
 
 echo "Updating requirements"
-pip install -r /opt/sfm-weibo-datasts/requirements/master.txt --upgrade
+pip install -r /opt/sfm-weibo-datasts/requirements/dev.txt --upgrade
 
 echo "Waiting for db"
 appdeps.py --wait-secs 30 --port-wait db:5432

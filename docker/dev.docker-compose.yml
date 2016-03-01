@@ -4,13 +4,13 @@ sfmdevdb:
         - TZ=EST
         - POSTGRES_PASSWORD=gherD42#dl5
 sfmdevapp:
-    image: gwul/sfm-weibo-analysis:dev
+    image: gwul/sfm-weibo-datasts:dev
     ports:
         - "8080:80"
     links:
         - sfmdevdb:db
     volumes:
-        - "..:/opt/sfm-weibo-analysis"
+        - "..:/opt/sfm-weibo-datasts"
         - "../../sfm-weibo-harvester:/opt/sfm-weibo-harvester"
         - "../../sfm-utils:/opt/sfm-utils"
         - "../../warcprox:/opt/warcprox"
