@@ -28,7 +28,7 @@ class Command(BaseCommand):
         Load the weibos post from the warc files, adding them to the database.
         """
 
-        self.data_dir = os.path.join(settings.ROOT_DIR, 'datasts', 'data')
+        self.data_dir = settings.DATA_DIR
         logging.debug("flush weibo status...")
         #self.flush_weibostatus()
 

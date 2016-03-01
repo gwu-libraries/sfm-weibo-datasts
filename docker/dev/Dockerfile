@@ -23,6 +23,5 @@ ADD invoke.sh /opt/
 RUN chmod +x /opt/invoke.sh
 
 WORKDIR /opt/sfm-weibo-datasts
-ENV DJANGO_SETTINGS_MODULE=sfm.settings.docker_settings
 CMD ["/opt/invoke.sh"]
 EXPOSE 80

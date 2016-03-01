@@ -3,7 +3,7 @@ sfmdevdb:
     environment:
         - TZ=EST
         - POSTGRES_PASSWORD=gherD42#dl5
-sfmdevapp:
+sfmweibodatasts:
     image: gwul/sfm-weibo-datasts:dev
     ports:
         - "8080:80"
