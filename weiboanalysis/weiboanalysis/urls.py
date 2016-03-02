@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'datasts.views.index', name='index'),
     url(r'^weibos/$', 'datasts.views.weibos', name='weibos'),
+    url(r'^search/$', 'datasts.views.search', name='search'),
 ]

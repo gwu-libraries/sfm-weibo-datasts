@@ -1,17 +1,19 @@
-<div class="pagination pagination-centered">
-    <ul>
+<div >
+    <ol class="am-breadcrumb am-breadcrumb-slash am-text-center">
         {% if weibos.has_previous %}
-        <li><a href="{% url 'weibos' %}?page=1">&laquo; 1</a></li>
-        <li><a href="{% url 'weibos' %}?page={{ weibos.previous_page_number }}">newer</a></li>
+        <li><a href="{% url 'weibos' %}?page={{ weibos.previous_page_number }}">&laquo; Previous Page</a></li>
+        <li><a href="{% url 'weibos' %}?page=1">1</a></li>
         {% else %}
-        <li class="active"><a href="{% url 'weibos' %}?page=1 %}">&laquo;</a></li>
+        <li class="am-active">&laquo; Previous Page </a></li>
         {% endif %}
-        <li class="active">
-            <a href="#">{{ weibos.number }}</a>
+        <li class="am-active">
+            {{ weibos.number }}
         </li>
         {% if weibos.has_next %}
-        <li><a href="{% url 'weibos' %}?page={{ weibos.next_page_number }}">older</a></li>
-        <li><a href="{% url 'weibos' %}?page={{ weibos.paginator.num_pages }}">{{ weibos.paginator.num_pages }} &raquo;</a></li>
+        <li><a href="{% url 'weibos' %}?page={{ weibos.paginator.num_pages }}">{{ weibos.paginator.num_pages }}</a></li>
+        <li><a href="{% url 'weibos' %}?page={{ weibos.next_page_number }}">Next Page &raquo;</a></li>
+        {% else %}
+        <li class="am-active">Next Page &raquo; </li>
         {% endif %}
-    </ul>
+    </ol>
 </div>

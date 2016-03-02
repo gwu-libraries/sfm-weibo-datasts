@@ -8,20 +8,14 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="renderer" content="webkit">
         <meta http-equiv="Cache-Control" content="no-siteapp"/>
-
         {% block stylesheet %}
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
-        <link href="{{ STATIC_URL }}css/libheader7_lite.css" rel="stylesheet" />
-        <link href="{{ STATIC_URL }}css/libheader7_lite_bootswatch.css" rel="stylesheet" />
+
         <!--[if lt IE 9]>
-        <link href="{{ STATIC_URL }}css/libheader7_lite_ie.css" rel="stylesheet">
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <link href="{{ STATIC_URL }}css/sfm.css" rel="stylesheet" />
-
-        <link rel="alternate icon" type="image/png" href="/static/assets/i/favicon.png">
-        <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
-
+        <link rel="canonical" href="http://amazeui.org/javascript/datepicker?_ver=2.x">
+        <link rel="stylesheet" href="http://cdn.amazeui.org//amazeui/2.5.0/css/amazeui.min.css">
+        <link rel="stylesheet" href="http://s.amazeui.org/assets/2.x/css/amaze.min.css?v=ihltkpad">
 
         {% endblock stylesheet %}
 
@@ -40,6 +34,21 @@
     </head>
 
     <body>
+    <!--[if lte IE 9 ]>
+        <div class="am-alert am-alert-danger ie-warning" data-am-alert>
+        <button type="button" class="am-close">&times;</button>
+        <div class="am-container">
+            Your browser seems out of date!
+        <a href="http://browsehappy.com/" target="_blank">Update your browser!</a>！
+        </div>
+        </div>
+    <![endif]-->
+        <header id="amz-header">
+            <div class="amz-container am-cf">
+                <h1 style="height: 55px;width: 100px;"></h1>
+            </div>
+        </header>
+
 
         <article class="container">
             {% block content %}
@@ -48,8 +57,8 @@
         </article>
 
         <footer class="footer">
-            <p>© Copyright 2015 <a href="https://github.com/gwu-libraries/" target="_blank">George Washington University Libraries</a>.
-                Powered by <a herf="http://amazeui.org/">Amaze UI</a></p>
+            <p>© Copyright 2016 <a href="http://library.gwu.edu" target="_blank">George Washington University Libraries</a>.
+                Powered by <a href="http://amazeui.org/">Amaze UI</a></p>
         </footer>
 
         {% block javascript %}

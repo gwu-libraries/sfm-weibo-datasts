@@ -3,11 +3,36 @@
 
 {% block content %}
 
-<div class='am-text-center'>
-    <h1>{{ title }}</h1>
+<div class="amz-banner">
+    <div class="amz-container">
+        <h1 class="am-text-center">{{ title }}</h1>
+
+    </div>
 </div>
 
+
 <div class='am-g am-container' style=" max-width: 1200px;">
+    <hr>
+    <h1>Filter Weibos</h1>
+    <form class="am-form-inline " role="form" action="{% url 'search' %}" method="get">
+
+          <div class="am-form-group">
+            <input type="text" name='q' class="am-form-success am-form-field" placeholder="Screen Name">
+          </div>
+
+            <div class="am-form-group am-form-icon">
+            <i class="am-icon-calendar"></i>
+            <input type="text" name="start_date" class="am-form-field" placeholder="Start Date">
+          </div>
+             <div class="am-form-group am-form-icon">
+            <i class="am-icon-calendar"></i>
+            <input type="text" name="end_date" class="am-form-field" placeholder="End Date">
+          </div>
+
+          <button type="submit" class="am-btn am-btn-default am-btn-secondary">Search</button>
+    </form>
+    <hr>
+    <h1>All Weibos</h1>
     {% include "weibos_pagination.html" %}
     <table class='am-table am-table-striped am-table-hover'>
         <thead>

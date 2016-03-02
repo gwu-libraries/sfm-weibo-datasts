@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='span-12'>
+
+    {% if title %}
+    <div class='page-header'>
+        <h2>{{ title }} {{ q }}</h2>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}
