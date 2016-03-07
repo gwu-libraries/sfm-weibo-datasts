@@ -13,14 +13,11 @@
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <link rel="canonical" href="http://amazeui.org/javascript/datepicker?_ver=2.x">
-        <link rel="stylesheet" href="http://cdn.amazeui.org//amazeui/2.5.0/css/amazeui.min.css">
-        <link rel="stylesheet" href="http://s.amazeui.org/assets/2.x/css/amaze.min.css?v=ihltkpad">
+        <link rel="stylesheet" href="/static/assets/css/amazeui.min.css?v=i88dzwkx">
 
-        {% endblock stylesheet %}
+        <link rel="stylesheet" href="/static/assets/css/amaze.min.css?v=i88dzwkx">
 
-        {% block stylesheet_extra %}
-        <style>
+         <style>
             .footer p {
               color: #7f8c8d;
               margin: 0;
@@ -28,8 +25,11 @@
               text-align: center;
               background: #2d3e50;
             }
-        </style>
 
+        </style>
+        {% endblock stylesheet %}
+
+        {% block stylesheet_extra %}
         {% endblock stylesheet_extra %}
     </head>
 
@@ -44,9 +44,14 @@
         </div>
     <![endif]-->
         <header id="amz-header">
-            <div class="amz-container am-cf">
-                <h1 style="height: 55px;width: 100px;"></h1>
-            </div>
+        <div class="amz-container am-cf">
+            <h1 style="height: 55px;width: 100px;"></h1>
+            <button class="am-btn am-btn-primary am-show-sm-only" data-am-collapse="{target: &#39;.amz-header-nav&#39;}">
+            <span class="am-sr-only">Menu</span>
+            <span class="am-icon-bars"></span>
+            </button>
+
+        </div>
         </header>
 
 
@@ -60,10 +65,22 @@
             <p>© Copyright 2016 <a href="http://library.gwu.edu" target="_blank">George Washington University Libraries</a>.
                 Powered by <a href="http://amazeui.org/">Amaze UI</a></p>
         </footer>
-
+        <div class="amz-toolbar" id="amz-toolbar">
+            <a href="#top" title="go top" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
+        </div>
         {% block javascript %}
-        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+        <script src="/static/assets/js/amazeui.ie8polyfill.min.js"></script>
+        <![endif]-->
+        <!--[if (gte IE 9)|!(IE)]><!-->
+        <script src="/static/assets/js/jquery.min.js"></script>
+        <!--<![endif]-->
+        <script src="/static/assets/js/amazeui.min.js"></script>
+        <script src="/static/assets/js/handlebars.min.js"></script>
+        <script src="/static/assets/js/main.min.js"></script>
+
         {% endblock javascript %}
         {% block javascript_extra %}
         {% endblock javascript_extra %}

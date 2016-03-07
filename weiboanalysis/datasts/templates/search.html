@@ -1,13 +1,124 @@
 {% extends "base.html" %}
 
-{% block content %}
-<div class='span-12'>
+{% block stylesheet_extra %}
+<style>
+    .svg {
+        width: 1000px;
+        height: 300px;
+    }
+    .bar {
+        fill: steelblue;
+    }
+    .bar:hover {
+        fill: brown;
+    }
+</style>
+{% endblock stylesheet_extra %}
 
-    {% if title %}
-    <div class='page-header'>
-        <h2>{{ title }} {{ q }}</h2>
+{% block javascript_extra %}
+<!--[if IE]>
+<script src="/static/assets/js/excanvas.js"></script>
+<![endif]-->
+<script src="/static/assets/js/html5-canvas-bar-graph.js"></script>
+<script>(function () {
+    var daily_counts = {{ daily_counts|safe }};
+
+    function createCanvas(divName) {
+
+        var div = document.getElementById(divName);
+        var canvas = document.createElement('canvas');
+        div.appendChild(canvas);
+        if (typeof G_vmlCanvasManager != 'undefined') {
+            canvas = G_vmlCanvasManager.initElement(canvas);
+        }
+        var ctx = canvas.getContext("2d");
+        return ctx;
+    }
+
+    var ctx = createCanvas("graphDiv1");
+
+    var graph = new BarGraph(ctx);
+    graph.margin = 10;
+    graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27"];
+    var i=0;
+    var valuelist=[];
+    while (i<daily_counts.length)
+    {
+        graph.xAxisLabelArr[i]=daily_counts[i][0];
+        valuelist[i]=daily_counts[i][1];
+        i++;
+    }
+    setInterval(function () {
+        graph.update(valuelist);
+    }, 1000);
+
+}());
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="amz-banner">
+    <div class="amz-container">
+        <h1 class="am-text-center">{{ title }}</h1>
     </div>
+</div>
+
+<div class='am-g am-container'>
+    <hr>
+    <h1>Filter Weibos({{ weibos.count }})</h1>
+    <hr>
+    {% if weibos.count %}
+    <div class="am-text-center" id='graphDiv1'></div>
+    <hr>
+    {% include "weibos_pagination.html" %}
+    <table class='am-table am-table-striped am-table-hover'>
+        <thead>
+            <tr>
+                <th class="am-text-center">weibo_id</th>
+                <th class="am-text-center">screen_name</th>
+                <th class="am-text-center">uid</th>
+                <th class="am-text-center">date_published</th>
+                <th class="am-text-center">text</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in weibos %}
+            <tr>
+                <td>{{ item.weibo_id }}</td>
+                <td>{{ item.screen_name }}</td>
+                <td>{{ item.uid }}</td>
+                <td>{{ item.date_published }}</td>
+                <td>{{ item.context }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "weibos_pagination.html" %}
+    {% else %}
+     <div class="am-text-center" id="my-alert">
+          <pre class=" page-404" style="height: 480px;padding-top: 100px">
+          .----.
+       _.'__    `.
+   .--($)($$)---/#\
+ .' @          /###\
+ :         ,   #####
+  `-..__.-' _.-\###/
+        `;_:    `"'
+      .'"""""`.
+     /,  ya ,\\
+    //  No!  \\
+    `-._______.-'
+    ___`. | .'___
+   (______|______)
+        </pre>
+     </div>
     {% endif %}
 
 </div>
+
+
+
+
 {% endblock content %}
+

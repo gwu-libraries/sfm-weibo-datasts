@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-
 {% block content %}
+
 
 <div class="amz-banner">
     <div class="amz-container">
@@ -11,25 +11,41 @@
 </div>
 
 
-<div class='am-g am-container' style=" max-width: 1200px;">
+<div class='am-g am-container'>
     <hr>
     <h1>Filter Weibos</h1>
-    <form class="am-form-inline " role="form" action="{% url 'search' %}" method="get">
+    <form class="am-form " role="form" action="{% url 'search' %}" method="get" data-am-validator>
 
           <div class="am-form-group">
-            <input type="text" name='q' class="am-form-success am-form-field" placeholder="Screen Name">
+
+              <select class="am-form-success am-form-field" placeholder="Screen Name" name='q' id="doc-select-1">
+                  <option value="">ALL</option>
+                  {% for li in screen_name_set %}
+                   <option value={{ li.screen_name }}>{{ li.screen_name }}</option>
+                  {% endfor %}
+              </select>
+              <span class="am-form-caret"></span>
           </div>
 
-            <div class="am-form-group am-form-icon">
-            <i class="am-icon-calendar"></i>
-            <input type="text" name="start_date" class="am-form-field" placeholder="Start Date">
+            <div class="am-form-group am-form-icon date">
+                <i class="am-icon-calendar"></i>
+                <input type="text" name="start_date" id="start_date" class="am-form-field" placeholder="Start Date"
+                          data-am-datepicker="{format: 'mm-dd-yyyy', locale: 'en_US'}" readonly/>
+
           </div>
              <div class="am-form-group am-form-icon">
             <i class="am-icon-calendar"></i>
-            <input type="text" name="end_date" class="am-form-field" placeholder="End Date">
+              <input type="text" name="end_date" id="end_date"  class="am-form-field" placeholder="End Date"
+                          data-am-datepicker="{format: 'mm-dd-yyyy', locale: 'en_US'}" readonly/>
           </div>
 
-          <button type="submit" class="am-btn am-btn-default am-btn-secondary">Search</button>
+
+          <button type="submit" class="am-btn am-btn-default am-btn-secondary am-align-center">Search</button>
+         {% if error %}
+         <div class="am-text-danger" id="my-alert">
+            <p>{{ error_message }}</p>
+          </div>
+         {% endif %}
     </form>
     <hr>
     <h1>All Weibos</h1>
@@ -62,3 +78,4 @@
 
 
 {% endblock content %}
+
