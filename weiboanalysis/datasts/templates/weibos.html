@@ -56,8 +56,8 @@
     <form class="am-form " role="form" action="{% url 'search' %}" method="get" data-am-validator>
 
           <div class="am-form-group">
-
-              <select class="am-form-success am-form-field" placeholder="Screen Name" name='q' id="doc-select-1">
+              <label for="screen_name_sec">Screen Name</label>
+              <select class="am-form-success am-form-field"  name='q' id="screen_name_sec">
                   {% for li in screen_name_set %}
                    <option value={{ li.screen_name }}>{{ li.screen_name }}</option>
                   {% endfor %}
@@ -66,6 +66,7 @@
           </div>
 
             <div class="am-form-group am-form-icon">
+
                 <i class="am-icon-calendar"></i>
                 <input type="text" name="start_date" id="start_date" class="am-form-field" placeholder="Start Date"
                           data-am-datepicker="{format: 'mm-dd-yyyy', locale: 'en_US'}" readonly/>
@@ -86,7 +87,7 @@
 
     </form>
     <hr>
-    <h1>All Weibos</h1>
+    <h1>All Weibos({{ weibo_count }})</h1>
     {% include "weibos_pagination.html" %}
     <table class='am-table am-table-striped am-table-hover'>
         <thead>

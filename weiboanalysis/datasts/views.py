@@ -74,6 +74,7 @@ def search(request):
 
 def weibos(request):
     qs_weibos = Weibostatus.objects.order_by('-date_published')
+    weibo_count= qs_weibos.count()
     screen_name_set = Weibostatus.objects.order_by().values('screen_name').distinct()
     paginator = Paginator(qs_weibos, 30)
     page, weibos = _paginate(request, paginator)
@@ -81,6 +82,7 @@ def weibos(request):
         'title': 'Weibo Data Statistic',
         'screen_name_set': screen_name_set,
         'weibos': weibos,
+        'weibo_count':weibo_count,
         'paginator': paginator,
         'page': page,
     })
