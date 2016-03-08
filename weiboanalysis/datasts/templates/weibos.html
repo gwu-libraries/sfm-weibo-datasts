@@ -1,5 +1,44 @@
 {% extends "base.html" %}
 
+{% block javascript_extra %}
+<script>
+  $(function() {
+    var startDate=new Date(document.getElementById('start_date').value);
+    var endDate=new Date(document.getElementById('end_date').value);
+    var $alert = $('#my-alert');
+    var searchbtn =document.getElementById('search_btn');
+
+    $('#start_date').datepicker().
+      on('changeDate.datepicker.amui', function(event) {
+        if (event.date.valueOf() > endDate.valueOf()) {
+          $alert.find('p').text('Start date should be less than end date!').end().show();
+	  searchbtn.disabled=true;
+        } else {
+          $alert.hide();
+          startDate = new Date(event.date);
+	  searchbtn.disabled=false;
+
+        }
+        $(this).datepicker('close');
+      });
+
+    $('#end_date').datepicker().
+      on('changeDate.datepicker.amui', function(event) {
+        if (event.date.valueOf() < startDate.valueOf()) {
+          $alert.find('p').text('End date shoud be greater than start date!').end().show();
+	  searchbtn.disabled=true;
+        } else {
+          $alert.hide();
+          endDate = new Date(event.date);
+	  searchbtn.disabled=false;
+
+        }
+        $(this).datepicker('close');
+      });
+  });
+</script>
+{% endblock %}
+
 {% block content %}
 
 
@@ -19,7 +58,6 @@
           <div class="am-form-group">
 
               <select class="am-form-success am-form-field" placeholder="Screen Name" name='q' id="doc-select-1">
-                  <option value="">ALL</option>
                   {% for li in screen_name_set %}
                    <option value={{ li.screen_name }}>{{ li.screen_name }}</option>
                   {% endfor %}
@@ -27,25 +65,25 @@
               <span class="am-form-caret"></span>
           </div>
 
-            <div class="am-form-group am-form-icon date">
+            <div class="am-form-group am-form-icon">
                 <i class="am-icon-calendar"></i>
                 <input type="text" name="start_date" id="start_date" class="am-form-field" placeholder="Start Date"
                           data-am-datepicker="{format: 'mm-dd-yyyy', locale: 'en_US'}" readonly/>
 
           </div>
-             <div class="am-form-group am-form-icon">
+
+        <div class="am-form-group am-form-icon">
             <i class="am-icon-calendar"></i>
-              <input type="text" name="end_date" id="end_date"  class="am-form-field" placeholder="End Date"
+              <input type="text" name="end_date" id="end_date"   class="am-form-field" placeholder="End Date"
                           data-am-datepicker="{format: 'mm-dd-yyyy', locale: 'en_US'}" readonly/>
           </div>
 
 
-          <button type="submit" class="am-btn am-btn-default am-btn-secondary am-align-center">Search</button>
-         {% if error %}
-         <div class="am-text-danger" id="my-alert">
-            <p>{{ error_message }}</p>
-          </div>
-         {% endif %}
+          <button type="submit" id="search_btn" class="am-btn am-btn-default am-btn-secondary am-align-center">Search</button>
+         <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
+            <p>Start date should be less than end date!</p>
+         </div>
+
     </form>
     <hr>
     <h1>All Weibos</h1>

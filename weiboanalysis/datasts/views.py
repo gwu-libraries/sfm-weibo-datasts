@@ -28,7 +28,7 @@ def search(request):
         end_date = request.GET['end_date']
         start_date_object = None
         end_date_object = None
-        daily_counts=[['03-02-2016',120],['03-01-2016',200],['03-05-2016',600],['03-07-2016',1100]]
+
         weibos=[]
         if start_date:
             start_date_object = datetime.strptime(start_date, '%m-%d-%Y')
@@ -52,8 +52,14 @@ def search(request):
                             for row in cursor.fetchall()]
         except:
             daily_counts=[]
-        title = 'Search "%s" Results' % q
+        title = q
 
+        """
+        daily_counts=[['03-02-2016',120],['03-01-2016',200],['03-05-2016',600],['03-07-2016',110],
+                      ['02-02-2016',100],['02-01-2016',222],['02-05-2016',900],['02-07-2016',110],
+                       ['02-02-2016',100],['02-01-2016',222],['02-05-2016',900],['02-07-2016',110],
+                       ['02-02-2016',100],['02-01-2016',222],['02-05-2016',900],['02-07-2016',110]]
+        """
         return render(request, 'search.html', {
             'weibos': weibos,
             'title': title,

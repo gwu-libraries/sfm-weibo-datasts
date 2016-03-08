@@ -1,19 +1,5 @@
 {% extends "base.html" %}
 
-{% block stylesheet_extra %}
-<style>
-    .svg {
-        width: 1000px;
-        height: 300px;
-    }
-    .bar {
-        fill: steelblue;
-    }
-    .bar:hover {
-        fill: brown;
-    }
-</style>
-{% endblock stylesheet_extra %}
 
 {% block javascript_extra %}
 <!--[if IE]>
@@ -39,7 +25,11 @@
 
     var graph = new BarGraph(ctx);
     graph.margin = 10;
+
+    graph.width = 80*daily_counts.length;
+    graph.height = 300;
     graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27"];
+
     var i=0;
     var valuelist=[];
     while (i<daily_counts.length)
@@ -48,9 +38,8 @@
         valuelist[i]=daily_counts[i][1];
         i++;
     }
-    setInterval(function () {
-        graph.update(valuelist);
-    }, 1000);
+
+    graph.update(valuelist);
 
 }());
 </script>
@@ -59,7 +48,7 @@
 {% block content %}
 <div class="amz-banner">
     <div class="amz-container">
-        <h1 class="am-text-center">{{ title }}</h1>
+        <h1 class="am-text-center">Search "{{ title }}" Result</h1>
     </div>
 </div>
 
@@ -68,7 +57,8 @@
     <h1>Filter Weibos({{ weibos.count }})</h1>
     <hr>
     {% if weibos.count %}
-    <div class="am-text-center" id='graphDiv1'></div>
+    <h1 class="am-text-center">Daily Distribution for "{{ title }}"</h1>
+    <div class="am-container am-text-center" style="overflow:auto;" id='graphDiv1'></div>
     <hr>
     {% include "weibos_pagination.html" %}
     <table class='am-table am-table-striped am-table-hover'>
@@ -97,7 +87,7 @@
     {% include "weibos_pagination.html" %}
     {% else %}
      <div class="am-text-center" id="my-alert">
-          <pre class=" page-404" style="height: 480px;padding-top: 100px">
+          <pre class=" page-404" style="height: 500px;padding-top: 120px">
           .----.
        _.'__    `.
    .--($)($$)---/#\
