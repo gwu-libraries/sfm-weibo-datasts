@@ -54,13 +54,13 @@
 
 <div class='am-g am-container'>
     <hr>
-    <h1>Filter Weibos({{ weibos.count }})</h1>
+    <h1>Filter Weibos({{ weibo_count }})</h1>
     <hr>
-    {% if weibos.count %}
+    {% if weibo_count %}
     <h1 class="am-text-center">Daily Distribution for "{{ title }}"</h1>
     <div class="am-container am-text-center" style="overflow:auto;" id='graphDiv1'></div>
     <hr>
-    {% include "weibos_pagination.html" %}
+    {% include "search_pagination.html" %}
     <table class='am-table am-table-striped am-table-hover'>
         <thead>
             <tr>
@@ -84,7 +84,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {% include "weibos_pagination.html" %}
+    {% include "search_pagination.html" %}
     {% else %}
      <div class="am-text-center" id="my-alert">
           <pre class=" page-404" style="height: 500px;padding-top: 120px">

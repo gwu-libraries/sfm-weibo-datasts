@@ -18,7 +18,9 @@ def _paginate(request, paginator):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {
+        'title': 'Rainbow Colors Life',
+        })
 
 
 def search(request):
@@ -29,20 +31,20 @@ def search(request):
         start_date_object = None
         end_date_object = None
 
-        weibos=[]
+        qs_weibos=[]
         if start_date:
             start_date_object = datetime.strptime(start_date, '%m-%d-%Y')
         if end_date:
             end_date_object = datetime.strptime(end_date, '%m-%d-%Y')
 
         if start_date_object and not end_date_object:
-            weibos = Weibostatus.objects.filter(screen_name=q, date_published__gte=start_date_object)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__gte=start_date_object)
         elif end_date_object and not start_date_object:
-            weibos = Weibostatus.objects.filter(screen_name=q, date_published__lte=end_date_object)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__lte=end_date_object)
         elif not end_date_object and not start_date_object:
-            weibos = Weibostatus.objects.filter(screen_name=q)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q)
         elif end_date_object and start_date_object:
-            weibos = Weibostatus.objects.filter(screen_name=q, date_published__range=(start_date_object, end_date_object))
+            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__range=(start_date_object, end_date_object))
 
         try:
             cursor = connection.cursor()
@@ -52,7 +54,12 @@ def search(request):
                             for row in cursor.fetchall()]
         except:
             daily_counts=[]
+
         title = q
+        weibo_count= qs_weibos.count()
+        paginator = Paginator(qs_weibos, 30)
+        page, weibos = _paginate(request, paginator)
+        search_url = "q="+request.GET['q']+"&start_date="+request.GET['start_date']+"&end_date="+request.GET['end_date']
 
         """
         daily_counts=[['03-02-2016',120],['03-01-2016',200],['03-05-2016',600],['03-07-2016',110],
@@ -62,8 +69,12 @@ def search(request):
         """
         return render(request, 'search.html', {
             'weibos': weibos,
+            'weibo_count':weibo_count,
             'title': title,
             'daily_counts': daily_counts,
+            'paginator': paginator,
+            'page': page,
+            'search_url': search_url,
         })
     else:
         return render(request, 'search.html', {

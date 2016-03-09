@@ -50,7 +50,22 @@
             <span class="am-sr-only">Menu</span>
             <span class="am-icon-bars"></span>
             </button>
-
+             <nav>
+            <ul class="amz-header-nav am-collapse">
+				<li>
+				  <a href="{% url 'weibos' %}">Home</a>
+				</li>
+				<li>
+                <li class="amz-cse">
+                    <form action="https://www.google.com/search" method="get" target="_blank" class="cse-form">
+                    <input type="hidden" name="s" value="">
+                    <input type="hidden" name="sitesearch" value="">
+                        <input type="text" required name="q" placeholder="search" autocomplete="off">
+                    <button><span class="am-icon-search"></span></button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
         </div>
         </header>
 

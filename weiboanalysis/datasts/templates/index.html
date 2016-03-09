@@ -1,6 +1,58 @@
+{% extends "base.html" %}
+
+{% block javascript_extra %}
+<!--[if IE]>
+<script src="/static/assets/js/excanvas.js"></script>
+<![endif]-->
+<script src="/static/assets/js/html5-canvas-bar-graph.js"></script>
+<script>(function () {
+   function createCanvas(divName) {
+
+			var div = document.getElementById(divName);
+			var canvas = document.createElement('canvas');
+			div.appendChild(canvas);
+			if (typeof G_vmlCanvasManager != 'undefined') {
+				canvas = G_vmlCanvasManager.initElement(canvas);
+			}
+			var ctx = canvas.getContext("2d");
+			return ctx;
+		}
+
+		var ctx = createCanvas("graphDiv1");
+
+		var graph = new BarGraph(ctx);
+		graph.maxValue = 500;
+		graph.margin = 10;
+        graph.width = 1000;
+        graph.height = 740;
+		graph.colors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00","#FFFF00","#FF7F00","#FF0000"];
+		graph.xAxisLabelArr = ["Violet", "Indigo", "Blue", "Green","Yellow","Orange","Red"];
+		setInterval(function () {
+			graph.update([Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                Math.random() * graph.maxValue,
+                ]);
+		}, 1000);
+
+}());
+</script>
+{% endblock %}
 
 {% block content %}
-Home Screen
+<div class="amz-banner">
+    <div class="amz-container">
+        <h1 class="am-text-center"><a href="{% url 'weibos' %}">{{ title }}</a></h1>
+
+    </div>
+</div>
+<div class='am-g am-container'>
+     <div class="am-container am-text-center" id='graphDiv1'></div>
+</div>
+
 {% endblock content %}
 
 
