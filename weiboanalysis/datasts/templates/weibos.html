@@ -2,6 +2,7 @@
 
 {% block javascript_extra %}
 <script>
+
   $(function() {
     var startDate=new Date(document.getElementById('start_date').value);
     var endDate=new Date(document.getElementById('end_date').value);
@@ -106,7 +107,17 @@
                 <td>{{ item.screen_name }}</td>
                 <td>{{ item.uid }}</td>
                 <td>{{ item.date_published }}</td>
-                <td>{{ item.context }}</td>
+                <td>
+                    <p>{{ item.context }}</p>
+                    <p>
+                        {% for url in item.picurl_set.all %}
+                        <a rel="gallery" href={{ url.original_pic }}>
+			                <img class="am-radius am-img-thumbnail"
+                                 width="120" height="120" src={{ url.thumbnail_pic }} />
+                        </a>
+                        {% endfor %}
+                    </p>
+                </td>
 
             </tr>
             {% endfor %}

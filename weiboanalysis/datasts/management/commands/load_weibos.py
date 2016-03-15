@@ -8,7 +8,8 @@ import time
 import logging
 
 from django.conf import settings
-from datasts.models import Weibostatus
+from django.db import transaction
+from datasts.models import Weibostatus, PicUrl
 from weibo_warc_iter import WeiboWarcIter
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
@@ -30,6 +31,7 @@ class Command(BaseCommand):
         So we don't accidentally dupe ourselves.
         """
         Weibostatus.objects.all().delete()
+        PicUrl.objects.all.delete()
 
     def handle(self, *args, **options):
         """
@@ -41,6 +43,10 @@ class Command(BaseCommand):
         self.flush_weibostatus()
 
         weibo_list = []
+        picurl_list= []
+
+        transaction.set_autocommit(False)
+
         for wfile in os.listdir(self.data_dir):
             if wfile.endswith(".warc.gz"):
                 path = os.path.join(self.data_dir, wfile)
@@ -57,12 +63,28 @@ class Command(BaseCommand):
                                             uid=weibo["user"]["id"],
                                             date_published=self.created_at_to_dt(weibo["created_at"]),
                                             context=weibo["text"])
+                    picurl_set = []
+                    if 'pic_urls' in weibo and weibo['pic_urls'] is not None:
+                        for item in weibo['pic_urls']:
+                            new_picurl = PicUrl(thumbnail_pic=item['thumbnail_pic'],
+                                                bmiddle_pic=item['thumbnail_pic'].replace('thumbnail', 'bmiddle'),
+                                                original_pic=item['thumbnail_pic'].replace('thumbnail', 'large'))
+                            picurl_set.append(new_picurl)
                     weibo_list.append(weibo_row)
+                    picurl_list.append(picurl_set)
+                    weibo_row.save()
 
-        logger.debug("Loading weibo to database.")
-        #print weibo_list[0].uid
+        transaction.commit()
+        transaction.set_autocommit(True)
+
+        for i in xrange(len(weibo_list)):
+            for j in xrange(len(picurl_list[i])):
+                weibo_list[i].picurl_set.add(picurl_list[i][j])
+
+        # logger.debug("Loading weibo to database.")
+        # print weibo_list[0].uid
         # Batch upload weibo to the database, 200 at a time
-        Weibostatus.objects.bulk_create(
-            weibo_list,
-            batch_size=200
-        )
+        #Weibostatus.objects.bulk_create(
+        #    weibo_list,
+        #    batch_size=200
+        #)

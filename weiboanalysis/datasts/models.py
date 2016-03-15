@@ -27,3 +27,14 @@ class Weibostatus(models.Model):
     # return the context of the weibo
     def __unicode__(self):
         return self.weibo_id
+
+
+class PicUrl(models.Model):
+    thumbnail_pic = models.CharField('thumbnail_pic', max_length=2083)
+    bmiddle_pic = models.CharField('bmiddle_pic', max_length=2083)
+    original_pic = models.CharField('original_pic', max_length=2083)
+    weibo_status = models.ForeignKey(Weibostatus)
+
+    def __unicode__(self):
+        return self.original_pic
+
