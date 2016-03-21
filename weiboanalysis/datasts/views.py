@@ -38,13 +38,14 @@ def search(request):
             end_date_object = datetime.strptime(end_date, '%m-%d-%Y')
 
         if start_date_object and not end_date_object:
-            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__gte=start_date_object)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__gte=start_date_object).order_by('-date_published')
         elif end_date_object and not start_date_object:
-            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__lte=end_date_object)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__lte=end_date_object).order_by('-date_published')
         elif not end_date_object and not start_date_object:
-            qs_weibos = Weibostatus.objects.filter(screen_name=q)
+            qs_weibos = Weibostatus.objects.filter(screen_name=q).order_by('-date_published')
         elif end_date_object and start_date_object:
-            qs_weibos = Weibostatus.objects.filter(screen_name=q, date_published__range=(start_date_object, end_date_object))
+            qs_weibos = Weibostatus.objects.filter(screen_name=q,
+                                                   date_published__range=(start_date_object, end_date_object)).order_by('-date_published')
 
         try:
             cursor = connection.cursor()

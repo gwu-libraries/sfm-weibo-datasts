@@ -31,7 +31,6 @@ class Command(BaseCommand):
         So we don't accidentally dupe ourselves.
         """
         Weibostatus.objects.all().delete()
-        PicUrl.objects.all.delete()
 
     def handle(self, *args, **options):
         """
