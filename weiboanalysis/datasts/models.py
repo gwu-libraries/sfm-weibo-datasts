@@ -13,6 +13,8 @@ class Weibostatus(models.Model):
     uid = models.CharField('uid', max_length=30)
     date_published = models.DateTimeField('date_published')
     context = models.CharField('context', max_length=1024)
+    retweeted_context = models.TextField('retweeted_context', default='', max_length=1024)
+    is_retweeted = models.BooleanField(default=False)
 
     def range_datetime(self, start_date, end_date):
         time_pub = datetime.datetime(year=self.date_published.year,

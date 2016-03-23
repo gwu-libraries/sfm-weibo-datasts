@@ -109,6 +109,10 @@
                 <td>{{ item.date_published }}</td>
                 <td>
                     <p>{{ item.context }}</p>
+                    {% if item.is_retweeted %}
+                    <hr/>
+                    <blockquote class="am-text-xs">{{ item.retweeted_context }}</blockquote>
+                    {% endif%}
                     <p>
                         {% for url in item.picurl_set.all %}
                         <a rel="gallery" href={{ url.original_pic }}>
@@ -117,6 +121,9 @@
                         </a>
                         {% endfor %}
                     </p>
+                    {% if item.is_retweeted %}
+                    <hr/>
+                    {% endif %}
                 </td>
 
             </tr>
